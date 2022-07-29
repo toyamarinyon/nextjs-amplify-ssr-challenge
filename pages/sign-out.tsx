@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import { withSSRContext } from "aws-amplify";
+import { withSSRContext } from "../lib/amplify/withSSRContext";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { Auth } = withSSRContext(context);

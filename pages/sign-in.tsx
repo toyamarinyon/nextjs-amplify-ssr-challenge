@@ -1,4 +1,4 @@
-import { Auth } from "aws-amplify";
+import { Auth } from "@aws-amplify/auth";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { isErrorWithMessage } from "../src/error";

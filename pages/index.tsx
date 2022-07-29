@@ -1,12 +1,17 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { withSSRContext } from "aws-amplify";
+import { withSSRContext } from "../lib/amplify/withSSRContext";
 import Link from "next/link";
+import { Amplify } from "@aws-amplify/core";
+import awsconfig from "../src/aws-exports";
 
 export const getServerSideProps: GetServerSideProps<{
   username: string;
 }> = async (context) => {
-  const { Auth } = withSSRContext(context);
+  Amplify.configure({ ...awsconfig, ssr: true });
+
+  const { Auth } = withSSRContext({ req: context.req });
   try {
+    await Auth.currentSession();
     const user = await Auth.currentAuthenticatedUser();
     const username = user.username as string;
     return {
